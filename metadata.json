@@ -1,0 +1,6 @@
+{
+  "name": "汉字笔顺大师",
+  "description": "墨香练字馆 - 专为儿童打造的新中式美学汉字笔顺动画演示与临摹练习应用。内置部编五年级下册180个必学生字，支持高精度的手写板识别与标准笔画顺序互动评测。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

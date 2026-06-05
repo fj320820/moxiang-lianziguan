@@ -1,0 +1,177 @@
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
+@import "tailwindcss";
+
+@theme {
+  --color-qinghua: #3E6D9C;
+  --color-celadon: #6A8F7A;
+  --color-cinnabar: #C98A4A;
+  --color-xuan: #FAF8F2;
+  --color-stamp: #B83B26; /* Imperial Red Seal Stamp */
+  --font-serif: "LXGW WenKai Screen", "STKaiti", "Kaiti SC", "KaiTi", "Noto Serif CJK SC", "Playfair Display", serif;
+  --font-sans: "HarmonyOS Sans SC", "Inter", "Microsoft YaHei", "Heiti SC", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", monospace;
+}
+
+/* Custom Xuan paper grain simulation */
+@layer utilities {
+  .bg-xuan-paper {
+    background-color: #FAF8F2;
+    background-image: 
+      radial-gradient(rgba(142, 151, 117, 0.03) 1.5px, transparent 1.5px),
+      linear-gradient(to right, rgba(201, 138, 74, 0.015) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(201, 138, 74, 0.015) 1px, transparent 1px);
+    background-size: 32px 32px, 48px 48px, 48px 48px;
+    background-position: 0 0, 16px 16px, 16px 16px;
+  }
+
+  .xuan-card {
+    background-color: #FCFAF5;
+    border: 1.5px solid #E6DEC9;
+    box-shadow: 0 4px 20px -2px rgba(132, 126, 110, 0.12), inset 0 0 30px rgba(253, 252, 248, 0.7);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .xuan-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px -4px rgba(132, 126, 110, 0.2), inset 0 0 40px rgba(253, 252, 248, 0.9);
+  }
+
+  /* Selected character - Premium traditional Cinnabar dry ink stamp seal effect (朱砂印章压印) */
+  .stamp-seal-active {
+    border: 3px double rgba(184, 59, 38, 0.85);
+    color: #B83B26;
+    background-color: rgba(184, 59, 38, 0.04);
+    background-image: radial-gradient(circle at 35% 35%, rgba(184, 59, 38, 0.08) 1.5px, transparent 1.5px);
+    background-size: 8px 8px;
+    transform: rotate(-3.5deg) scale(1.03);
+    font-family: "LXGW WenKai Screen", "STKaiti", "Kaiti SC", serif;
+    position: relative;
+    /* Inward paper pressure (纸张压痕效果) + subtle outward stamp ink blur */
+    box-shadow: 
+      inset 1.5px 1.5px 3.5px rgba(184, 59, 38, 0.16), 
+      inset -1px -1.5px 2px rgba(255, 255, 255, 0.7),
+      0 1.5px 3px rgba(184, 59, 38, 0.1);
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .stamp-seal-active::after {
+    content: "💮";
+    position: absolute;
+    bottom: 2.5px;
+    right: 2.5px;
+    font-size: 8px;
+    opacity: 0.85;
+    pointer-events: none;
+    line-height: 1;
+    color: rgba(184, 59, 38, 0.8);
+  }
+
+  /* Rounded cinnabar/red seal stamp for master state */
+  .master-stamp-badge {
+    border: 1.5px solid #B83B26;
+    border-radius: 9999px;
+    color: #B83B26;
+    background-color: rgba(184, 59, 38, 0.05);
+    font-family: "LXGW WenKai Screen", "STKaiti", serif;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 1px #B83B26, inset 0 0 4px rgba(184, 59, 38, 0.1);
+  }
+}
+
+/* Ink drip/splatter ripple keyframe */
+@keyframes inkRipple {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+    filter: blur(10px);
+  }
+  100% {
+    transform: scale(2.0);
+    opacity: 0;
+    filter: blur(20px);
+  }
+}
+
+.animate-ink-ripple {
+  animation: inkRipple 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* Master Stamp Dropping Animation */
+@keyframes stampDrop {
+  0% {
+    transform: scale(2.8) rotate(35deg) translate(-20px, -20px);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  45% {
+    transform: scale(1.1) rotate(-8deg);
+    opacity: 0.9;
+    filter: blur(0px);
+  }
+  60% {
+    transform: scale(1.0) rotate(-6deg);
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(184, 59, 38, 0.4);
+  }
+  80% {
+    transform: scale(1.02) rotate(-5deg);
+  }
+  100% {
+    transform: scale(1.0) rotate(-6deg);
+    box-shadow: none;
+  }
+}
+
+.animate-stamp-drop {
+  animation: stampDrop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Traditional Chinese Calligraphy Book Border */
+.antique-border {
+  border: 1.5px solid #D1C5A5;
+  background-image: 
+    linear-gradient(90deg, #EBE4CB 1px, transparent 1px),
+    linear-gradient(to right, rgba(201, 138, 74, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 12px 12px;
+  position: relative;
+  box-shadow: 
+    0 4px 20px -2px rgba(132, 126, 110, 0.08), 
+    inset 0 0 24px rgba(253, 252, 248, 0.85);
+}
+
+.antique-border::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  border: 1px solid rgba(201, 138, 74, 0.2);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Faint traditional geometric pattern (回纹 / 祥云) watermark at the bottom right corner */
+.antique-border::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 42px;
+  height: 42px;
+  opacity: 0.025; /* Highly restrained (2%-3%) to avoid distraction */
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C98A4A' stroke-width='1.5'%3E%3Cpath d='M2 2h20v20H2V2zm4 4v12h12V6H6zm2 2h8v8H8V8zm2 2v4h4v-4h-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 0;
+}
